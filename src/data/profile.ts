@@ -8,7 +8,6 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/mohanad-harbi',
   cv: 'cv/Mohanad_Harbi_IT.pdf',
   photos: {
-    graduate: 'photos/graduate.jpeg',
     portrait: 'photos/portrait.jpeg',
   },
   summary:

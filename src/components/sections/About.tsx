@@ -1,6 +1,6 @@
 import { GraduationCap, Languages } from 'lucide-react'
 import { motion } from 'motion/react'
-import { Parallax, ScrollItem, ScrollWords } from '@/components/motion/scroll'
+import { ScrollItem, ScrollWords } from '@/components/motion/scroll'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { MagicCard } from '@/components/ui/magic-card'
 import { NumberTicker } from '@/components/ui/number-ticker'
@@ -18,27 +18,14 @@ export function About() {
           Who I am
         </h2>
       </BlurFade>
-      <div className="mt-10 grid gap-10 md:grid-cols-[0.9fr_1.1fr]">
-        <div className="grid grid-cols-2 gap-3 overflow-hidden">
-          <Parallax offset={48}>
-            <motion.img
-              whileHover={{ scale: 1.04, rotate: -1.5 }}
-              transition={{ type: 'spring', stiffness: 220 }}
-              src={asset(profile.photos.graduate)}
-              alt="Graduation portrait"
-              className="h-64 w-full rounded-2xl object-cover object-[center_20%] md:h-80"
-            />
-          </Parallax>
-          <Parallax offset={88}>
-            <motion.img
-              whileHover={{ scale: 1.04, rotate: 1.5 }}
-              transition={{ type: 'spring', stiffness: 220 }}
-              src={asset(profile.photos.portrait)}
-              alt="At Radisson Blu Resort & Spa Korek Mountain"
-              className="mt-8 h-64 w-full rounded-2xl object-cover object-center md:h-80"
-            />
-          </Parallax>
-        </div>
+      <div className="mt-10 grid items-start gap-10 md:grid-cols-[0.9fr_1.1fr]">
+        <motion.img
+          whileHover={{ scale: 1.015 }}
+          transition={{ type: 'spring', stiffness: 220 }}
+          src={asset(profile.photos.portrait)}
+          alt="At Radisson Blu Resort & Spa Korek Mountain"
+          className="h-auto w-full rounded-2xl border border-border/60 object-contain"
+        />
         <div className="space-y-6 rounded-2xl border border-border/60 bg-background/55 p-5 backdrop-blur-[2px] md:p-6">
           {profile.about.map((paragraph) => (
             <ScrollWords
