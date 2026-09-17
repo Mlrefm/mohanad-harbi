@@ -81,17 +81,23 @@ function RendererDisposal() {
 function PlayheadSync({
   scrollRef,
   playheadRef,
+  followPage,
 }: {
   scrollRef: MutableRefObject<number>
   playheadRef: MutableRefObject<number>
+  followPage: boolean
 }) {
   const started = useRef(performance.now())
 
   useFrame((_, delta) => {
+    if (followPage) {
+      const total = document.documentElement.scrollHeight - window.innerHeight
+      scrollRef.current = total <= 0 ? 0 : THREE.MathUtils.clamp(window.scrollY / total, 0, 1)
+    }
     const elapsed = (performance.now() - started.current) / 1000
-    const opened = smoothstep(0, 3.15, elapsed) * OPENING_PROGRESS
+    const opened = followPage ? OPENING_PROGRESS : smoothstep(0, 3.15, elapsed) * OPENING_PROGRESS
     const target = journeyPlayhead(scrollRef.current, opened)
-    playheadRef.current = THREE.MathUtils.damp(playheadRef.current, target, 8.4, delta)
+    playheadRef.current = THREE.MathUtils.damp(playheadRef.current, target, followPage ? 11.5 : 8.4, delta)
   })
 
   return null
@@ -101,9 +107,14 @@ function CameraPath({ playheadRef }: { playheadRef: MutableRefObject<number> }) 
   const camera = useThree((state) => state.camera)
   const look = useRef(new THREE.Vector3())
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     const { pos, look: target } = sampleCameraPath(playheadRef.current)
-    camera.position.set(pos[0], pos[1], pos[2])
+    const t = clock.elapsedTime
+    camera.position.set(
+      pos[0] + Math.sin(t * 0.13) * 0.12,
+      pos[1] + Math.cos(t * 0.09) * 0.04,
+      pos[2] + Math.cos(t * 0.11) * 0.1,
+    )
     look.current.set(target[0], target[1], target[2])
     camera.lookAt(look.current)
   })
@@ -327,9 +338,9 @@ function NetworkScene({
     const t = clock.elapsedTime
     const p = playheadRef.current
     const appear = Math.max(smoothstep(0.2, 1.45, t), smoothstep(0, 0.08, p))
-    root.current.scale.setScalar(0.2 + appear * 0.8)
-    root.current.rotation.y = p * 1.08 + Math.sin(t * 0.14) * 0.05
-    const targetPitch = Math.sin(p * Math.PI) * 0.16
+    root.current.scale.setScalar(0.2 + appear * 0.8 + p * 0.1)
+    root.current.rotation.y = p * 2.05 + Math.sin(t * 0.14) * 0.08
+    const targetPitch = Math.sin(p * Math.PI) * 0.28
     root.current.rotation.x = THREE.MathUtils.damp(root.current.rotation.x, targetPitch, 4, delta)
   })
 
@@ -337,7 +348,7 @@ function NetworkScene({
     <group ref={root}>
       <RadarRings playheadRef={playheadRef} />
       <Cables links={links} nodes={lookup} />
-      <Packets links={links} nodes={lookup} count={mobile ? 5 : 10} />
+      <Packets links={links} nodes={lookup} count={mobile ? 7 : 16} />
       {nodes.map((node) => (
         <GraphNodeMesh key={node.id} node={node} playheadRef={playheadRef} />
       ))}
@@ -349,10 +360,12 @@ export function NetworkWorld({
   mobile,
   scrollRef,
   paused,
+  followPage = false,
 }: {
   mobile: boolean
   scrollRef: MutableRefObject<number>
   paused: boolean
+  followPage?: boolean
 }) {
   const playheadRef = useRef(0)
   const start = sampleCameraPath(0)
@@ -397,10 +410,10 @@ export function NetworkWorld({
       <Stars
         radius={48}
         depth={36}
-        count={mobile ? 650 : 1400}
-        factor={3.2}
+        count={mobile ? 800 : 1800}
+        factor={3.4}
         fade
-        speed={0.55}
+        speed={0.7}
       />
       <Grid
         position={[0, -3.35, 0]}
@@ -416,7 +429,7 @@ export function NetworkWorld({
         infiniteGrid
         raycast={skipRaycast}
       />
-      <PlayheadSync scrollRef={scrollRef} playheadRef={playheadRef} />
+      <PlayheadSync scrollRef={scrollRef} playheadRef={playheadRef} followPage={followPage} />
       <CameraPath playheadRef={playheadRef} />
       <FogRig playheadRef={playheadRef} />
       <NetworkScene mobile={mobile} playheadRef={playheadRef} />

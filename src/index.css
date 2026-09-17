@@ -59,6 +59,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.intro-scroller {
+  scrollbar-color: color-mix(in oklab, var(--primary) 40%, transparent) transparent;
+}
+
 body {
   margin: 0;
   min-width: 320px;

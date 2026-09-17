@@ -1,5 +1,6 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { motion } from 'motion/react'
+import { ScrollItem, ScrollWords } from '@/components/motion/scroll'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { buttonVariants } from '@/components/ui/button'
 import { LiveButton } from '@/components/ui/live-button'
@@ -31,42 +32,50 @@ export function Contact() {
   ]
 
   return (
-    <section id="contact" className="relative z-10 mx-auto max-w-6xl px-4 py-20 md:px-6">
+    <section id="contact" className="relative z-10 mx-auto max-w-6xl scroll-mt-24 px-4 py-20 md:px-6">
       <BlurFade>
-        <p className="font-mono text-xs tracking-[0.2em] text-primary uppercase drop-shadow-[0_2px_12px_rgba(2,6,23,0.9)]">Next step</p>
-        <h2 className="mt-2 text-3xl font-bold tracking-tight drop-shadow-[0_2px_18px_rgba(2,6,23,0.9)] md:text-4xl">Contact</h2>
-        <p className="mt-3 max-w-xl text-sm text-muted-foreground drop-shadow-[0_2px_14px_rgba(2,6,23,0.9)] md:text-base">
-          For IT, networking, or software work in Erbil or remote — email, call, or write on LinkedIn.
+        <p className="font-mono text-xs tracking-[0.2em] text-primary uppercase drop-shadow-[0_2px_12px_rgba(2,6,23,0.9)]">
+          Next step
         </p>
+        <h2 className="mt-2 text-3xl font-bold tracking-tight drop-shadow-[0_2px_18px_rgba(2,6,23,0.9)] md:text-4xl">
+          Contact
+        </h2>
       </BlurFade>
+      <ScrollWords
+        text="For IT, networking, or software work in Erbil or remote — email, call, or write on LinkedIn."
+        className="mt-3 max-w-xl text-sm drop-shadow-[0_2px_14px_rgba(2,6,23,0.9)] md:text-base"
+      />
       <div className="mt-8 grid gap-4 md:grid-cols-2">
-        {items.map((item) => (
-          <motion.a
-            key={item.label}
-            href={item.href}
-            target={'external' in item && item.external ? '_blank' : undefined}
-            rel={'external' in item && item.external ? 'noreferrer' : undefined}
-            whileHover={{ y: -5, scale: 1.01 }}
-            className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 hover:border-primary/40"
-          >
-            {item.icon}
-            <span>{item.label}</span>
-          </motion.a>
+        {items.map((item, index) => (
+          <ScrollItem key={item.label} from={24 + index * 10} blur={false}>
+            <motion.a
+              href={item.href}
+              target={'external' in item && item.external ? '_blank' : undefined}
+              rel={'external' in item && item.external ? 'noreferrer' : undefined}
+              whileHover={{ y: -5, scale: 1.01 }}
+              className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 hover:border-primary/40"
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </motion.a>
+          </ScrollItem>
         ))}
-        <motion.div
-          whileHover={{ y: -5 }}
-          className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5"
-        >
-          <MapPin className="size-5 text-primary" />
-          <span>{profile.location}</span>
-        </motion.div>
+        <ScrollItem from={56} blur={false}>
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5"
+          >
+            <MapPin className="size-5 text-primary" />
+            <span>{profile.location}</span>
+          </motion.div>
+        </ScrollItem>
       </div>
-      <div className="mt-8 flex flex-wrap gap-3">
+      <ScrollItem from={32} blur={false} className="mt-8 flex flex-wrap gap-3">
         <LiveButton text="Email me" href={`mailto:${profile.email}`} />
         <a href={asset(profile.cv)} download className={cn(buttonVariants({ variant: 'outline' }))}>
           Download CV (PDF)
         </a>
-      </div>
+      </ScrollItem>
     </section>
   )
 }

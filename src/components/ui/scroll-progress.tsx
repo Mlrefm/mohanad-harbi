@@ -4,7 +4,7 @@ export function ScrollProgress() {
   const { scrollYProgress } = useScroll()
   return (
     <motion.div
-      className="fixed top-0 right-0 left-0 z-[60] h-0.5 origin-left bg-primary"
+      className="fixed top-0 right-0 left-0 z-[60] h-[2px] origin-left bg-primary shadow-[0_0_16px_var(--primary)]"
       style={{ scaleX: scrollYProgress }}
     />
   )

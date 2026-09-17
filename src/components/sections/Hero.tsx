@@ -1,5 +1,6 @@
+import { useRef } from 'react'
 import { ArrowDown } from 'lucide-react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern'
 import { AnimatedShinyText } from '@/components/ui/animated-shiny-text'
 import { AuroraText } from '@/components/ui/aurora-text'
@@ -25,36 +26,51 @@ const fadeUp = {
 }
 
 export function Hero({ cinematic = false }: { cinematic?: boolean }) {
+  const sectionRef = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion() ?? false
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 24 })
+  const y = useTransform(smooth, [0, 1], [0, 140])
+  const opacity = useTransform(smooth, [0, 0.72], [1, 0])
+  const scale = useTransform(smooth, [0, 1], [1, 0.9])
+  const photoY = useTransform(smooth, [0, 1], [0, 200])
+  const photoRotate = useTransform(smooth, [0, 1], [0, -8])
+
   return (
     <section
+      ref={sectionRef}
       id="top"
       className={cn(
         'relative isolate min-h-svh overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24',
         cinematic && 'bg-transparent pb-28 md:pb-32',
       )}
     >
-      {cinematic ? null : (
-        <>
-          <div className="animate-blob absolute -top-24 left-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-          <div
-            className="animate-blob absolute top-40 right-0 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl"
-            style={{ animationDelay: '2s' }}
-          />
-          <AnimatedGridPattern
-            className="absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"
-            numSquares={36}
-            maxOpacity={0.18}
-          />
-          <Particles className="absolute inset-0 z-0" quantity={90} ease={70} color="#aef33f" size={0.7} />
-          <Meteors number={16} />
-        </>
-      )}
-
+      <div className="animate-blob absolute -top-24 left-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
       <div
-        className={cn(
-          'relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-4 md:px-6',
-          cinematic ? 'md:grid-cols-1' : 'md:grid-cols-[1.15fr_0.85fr]',
-        )}
+        className="animate-blob absolute top-40 right-0 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl"
+        style={{ animationDelay: '2s' }}
+      />
+      <AnimatedGridPattern
+        className="absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"
+        numSquares={36}
+        maxOpacity={cinematic ? 0.12 : 0.18}
+      />
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={cinematic ? 70 : 90}
+        ease={70}
+        color="#aef33f"
+        size={0.7}
+      />
+      <Meteors number={cinematic ? 12 : 16} />
+      {cinematic ? <div className="pointer-events-none absolute inset-0 z-0 bg-[#020617]/15" /> : null}
+
+      <motion.div
+        style={reduce ? undefined : { y, opacity, scale }}
+        className="relative z-10 mx-auto grid max-w-6xl origin-top items-center gap-12 px-4 md:grid-cols-[1.15fr_0.85fr] md:px-6"
       >
         <div className={cinematic ? 'max-w-3xl drop-shadow-[0_2px_18px_rgba(2,6,23,0.85)]' : undefined}>
           <motion.div
@@ -136,11 +152,11 @@ export function Hero({ cinematic = false }: { cinematic?: boolean }) {
           </motion.div>
         </div>
 
-        {cinematic ? null : (
-          <motion.div
+        <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.8 }}
+            style={reduce ? undefined : { y: photoY, rotate: photoRotate }}
             className="relative mx-auto w-full max-w-sm"
           >
             <TiltCard className="animate-float">
@@ -157,8 +173,7 @@ export function Hero({ cinematic = false }: { cinematic?: boolean }) {
               B.Sc. Information Technology · CUE 2025
             </p>
           </motion.div>
-        )}
-      </div>
+      </motion.div>
     </section>
   )
 }

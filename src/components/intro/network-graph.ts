@@ -121,7 +121,7 @@ export type CameraKey = {
   look: [number, number, number]
 }
 
-/** First ~16% is the opening fly-in; remaining 84% maps to full-document scroll 0→1. */
+/** First ~16% is the opening fly-in; remaining 84% maps to intro or page scroll 0→1. */
 export const OPENING_PROGRESS = 0.16
 
 export function journeyPlayhead(scroll: number, opened: number) {

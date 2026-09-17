@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+import { ScrollFocus, ScrollWords } from '@/components/motion/scroll'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { BrowserFrame } from '@/components/ui/browser-frame'
 import { MagicCard } from '@/components/ui/magic-card'
@@ -45,14 +46,15 @@ export function Projects() {
   }, [active])
 
   return (
-    <section id="projects" className="relative z-10 mx-auto max-w-6xl px-4 py-20 md:px-6">
+    <section id="projects" className="relative z-10 mx-auto max-w-6xl scroll-mt-24 px-4 py-20 md:px-6">
       <BlurFade>
         <p className="font-mono text-xs tracking-[0.2em] text-primary uppercase drop-shadow-[0_2px_12px_rgba(2,6,23,0.9)]">Work</p>
         <h2 className="mt-2 text-3xl font-bold tracking-tight drop-shadow-[0_2px_18px_rgba(2,6,23,0.9)] md:text-4xl">Projects</h2>
-        <p className="mt-3 max-w-2xl text-sm text-muted-foreground drop-shadow-[0_2px_14px_rgba(2,6,23,0.9)] md:text-base">
-          Each project is here for a reason: the idea, who it helps, and the gap I could not find in other tools.
-        </p>
       </BlurFade>
+      <ScrollWords
+        text="Each project is here for a reason: the idea, who it helps, and the gap I could not find in other tools."
+        className="mt-3 max-w-2xl text-sm drop-shadow-[0_2px_14px_rgba(2,6,23,0.9)] md:text-base"
+      />
       <div className="mt-6 flex flex-wrap gap-2">
         {filters.map((item) => (
           <button
@@ -80,37 +82,39 @@ export function Projects() {
               exit={{ opacity: 0, scale: 0.94 }}
               transition={{ delay: index * 0.05 }}
             >
-              <MagicCard>
-                <button
-                  type="button"
-                  onClick={() => setActive(project)}
-                  className="group relative w-full overflow-hidden rounded-2xl text-left"
-                >
-                  <ShineBorder shineColor={['#aef33f', '#22c55e', '#38bdf8']} duration={10} />
-                  <img
-                    src={asset(project.cover)}
-                    alt=""
-                    className="aspect-video w-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="p-5">
-                    <p className="font-mono text-[11px] text-primary">
-                      {project.category} · {project.year}
-                    </p>
-                    <h3 className="mt-1 text-lg font-semibold">{project.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{project.summary}</p>
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {project.tech.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-md bg-secondary px-2 py-0.5 text-[11px] text-muted-foreground"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+              <ScrollFocus>
+                <MagicCard>
+                  <button
+                    type="button"
+                    onClick={() => setActive(project)}
+                    className="group relative w-full overflow-hidden rounded-2xl text-left"
+                  >
+                    <ShineBorder shineColor={['#aef33f', '#22c55e', '#38bdf8']} duration={10} />
+                    <img
+                      src={asset(project.cover)}
+                      alt=""
+                      className="aspect-video w-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="p-5">
+                      <p className="font-mono text-[11px] text-primary">
+                        {project.category} · {project.year}
+                      </p>
+                      <h3 className="mt-1 text-lg font-semibold">{project.title}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground">{project.summary}</p>
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {project.tech.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-md bg-secondary px-2 py-0.5 text-[11px] text-muted-foreground"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </button>
-              </MagicCard>
+                  </button>
+                </MagicCard>
+              </ScrollFocus>
             </motion.div>
           ))}
         </AnimatePresence>
