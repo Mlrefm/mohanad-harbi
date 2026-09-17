@@ -163,14 +163,14 @@ export function Hero({ cinematic = false }: { cinematic?: boolean }) {
               <div className="relative overflow-hidden rounded-3xl border border-border">
                 <BorderBeam size={90} duration={6} borderWidth={2} />
                 <img
-                  src={asset(profile.photos.graduate)}
-                  alt={`${profile.shortName} at Catholic University in Erbil graduation, 2025`}
-                  className="aspect-[3/4] w-full object-cover object-[center_18%]"
+                  src={asset(profile.photos.portrait)}
+                  alt={`${profile.shortName} at Radisson Blu Resort & Spa Korek Mountain`}
+                  className="aspect-[3/4] w-full object-cover object-center"
                 />
               </div>
             </TiltCard>
             <p className="mt-3 text-center font-mono text-xs text-muted-foreground">
-              B.Sc. Information Technology · CUE 2025
+              IT Manager · Network Infrastructure
             </p>
           </motion.div>
       </motion.div>
