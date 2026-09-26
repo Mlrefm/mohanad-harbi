@@ -39,7 +39,7 @@ export const profile = {
 
 export const experience = [
   {
-    role: 'IT Infrastructure Manager',
+    role: 'IT Infrastructure Specialist',
     org: 'Darin Plaza Hotel',
     place: 'Erbil, Iraq',
     period: '2026 — Present',
