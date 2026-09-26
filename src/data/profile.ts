@@ -39,10 +39,10 @@ export const profile = {
 
 export const experience = [
   {
-    role: 'IT Infrastructure Manager',
+    role: 'IT Infrastructure Specialist',
     org: 'Darin Plaza Hotel',
     place: 'Erbil, Iraq',
-    period: '2026 — Present',
+    period: '2026',
     points: [
       'Lead all IT operations as the sole IT owner for a full-service hotel across Cisco, Huawei, MikroTik, and UniFi.',
       'Deploy and administer VMware ESXi, including VMs for domain, applications, and backup hosts.',
