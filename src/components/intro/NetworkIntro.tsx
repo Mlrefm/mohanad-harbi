@@ -49,7 +49,7 @@ const chapters = [
     to: 0.92,
     kicker: '04 · Identity',
     title: profile.shortName,
-    text: 'IT Manager · Network Infrastructure',
+    text: 'IT Infrastructure Specialist · Network Infrastructure',
   },
   {
     from: 0.88,

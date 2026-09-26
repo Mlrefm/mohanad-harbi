@@ -1,6 +1,8 @@
 # Mohanad Harbi — Portfolio
 
-Personal site for **Mohanad Abdulsattar Harbi**: IT manager, network specialist, and hospitality IT work in Erbil, with projects, photos, skills, and CV.
+Personal site for **Mohanad Abdulsattar Harbi**: IT Infrastructure Specialist, network specialist, and hospitality IT work in Erbil, with projects, photos, skills, and CV.
+
+**Full guide** (stack, architecture, intro/3D, sections, deploy): [SITE.md](SITE.md)
 
 Live after GitHub Pages is on: `https://YOUR-USERNAME.github.io/YOUR-REPO/`
 

@@ -102,7 +102,7 @@ export function Hero({ cinematic = false }: { cinematic?: boolean }) {
           >
             <WordRotate
               words={[
-                'IT Manager',
+                'IT Infrastructure Specialist',
                 'Network Infrastructure Specialist',
                 'Hospitality IT Expert',
                 'Systems & Security',
@@ -170,7 +170,7 @@ export function Hero({ cinematic = false }: { cinematic?: boolean }) {
               </div>
             </TiltCard>
             <p className="mt-3 text-center font-mono text-xs text-muted-foreground">
-              IT Manager · Network Infrastructure
+              IT Infrastructure Specialist · Network Infrastructure
             </p>
           </motion.div>
       </motion.div>

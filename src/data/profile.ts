@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Mohanad Abdulsattar Harbi',
   shortName: 'Mohanad Harbi',
-  headline: 'IT Manager | Network Infrastructure Specialist | Hospitality IT Expert',
+  headline: 'IT Infrastructure Specialist | Hospitality IT Expert',
   location: 'Erbil, Iraq',
   email: 'mohandharbe59@gmail.com',
   phones: ['+964 750 896 9908', '+964 778 293 1412'],
@@ -11,7 +11,7 @@ export const profile = {
     portrait: 'photos/portrait.jpeg',
   },
   summary:
-    'Results-driven IT Manager and Network Infrastructure Specialist with extensive experience delivering end-to-end IT operations in the hospitality sector. I run enterprise networks (Cisco, Huawei, MikroTik, UniFi), Property Management Systems, POS platforms, financial systems, and cybersecurity controls — with a zero-downtime target.',
+    'Results-driven IT Infrastructure Specialist with extensive experience delivering end-to-end IT operations in the hospitality sector. I run enterprise networks (Cisco, Huawei, MikroTik, UniFi), Property Management Systems, POS platforms, financial systems, and cybersecurity controls — with a zero-downtime target.',
   about: [
     'I currently lead all IT operations as the sole IT responsible at Darin Plaza Hotel in Erbil: VMware ESXi, physical servers, UniFi Dream Machine, VLAN segmentation, firewalls, backups, and the systems that keep Front Office, F&B, Finance, and HR running.',
     'Before that I was IT Officer at Radisson Blu Resort & Spa Korek Mountain, working to Radisson global standards on PMS, POS, SunSystems, Materials Control, tape-library backups, and hotel-wide wireless.',
